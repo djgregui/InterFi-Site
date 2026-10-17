@@ -1,0 +1,9 @@
+# Configurações privadas
+/config.php
+/config-email.php
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
