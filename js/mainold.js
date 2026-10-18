@@ -4,7 +4,6 @@
    ========================================================= */
 (function () {
   'use strict';
-
   var nav = document.getElementById('nav');
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
@@ -20,19 +19,15 @@
       (open ? 'i-close' : 'i-menu') + '"></use></svg>';
     document.body.style.overflow = open ? 'hidden' : '';
   }
-
   toggle.addEventListener('click', function () {
     setMenu(!links.classList.contains('is-open'));
   });
-
   links.addEventListener('click', function (e) {
     if (e.target.closest('a')) setMenu(false);
   });
-
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && links.classList.contains('is-open')) setMenu(false);
   });
-
   window.addEventListener('resize', function () {
     if (window.innerWidth > 1024 && links.classList.contains('is-open')) setMenu(false);
   });
@@ -45,16 +40,12 @@
     links.querySelectorAll('a[href^="#"]')
   );
   var ticking = false;
-
   function onScroll() {
     var y = window.scrollY;
-
     nav.classList.toggle('is-stuck', y > 24);
     if (toTop) toTop.classList.toggle('is-visible', y > 700);
-
     var h = document.documentElement.scrollHeight - window.innerHeight;
     if (progress) progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
-
     var current = '';
     sections.forEach(function (s) {
       if (s.getBoundingClientRect().top <= 140) current = s.id;
@@ -63,13 +54,11 @@
       a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
     });
   }
-
   window.addEventListener('scroll', function () {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(function () { ticking = false; onScroll(); });
   }, { passive: true });
-
   onScroll();
 
   /* ---------- Ano no rodapé ---------- */
@@ -80,7 +69,6 @@
   var form = document.getElementById('demoForm');
   if (!form) return;
   var status = document.getElementById('formStatus');
-
   var rules = {
     nome: function (v) {
       if (!v.trim()) return 'Indique o seu nome.';
@@ -107,9 +95,7 @@
     },
     mensagem: function () { return ''; }
   };
-
   function fieldOf(input) { return input.closest('.field'); }
-
   function validate(input) {
     var rule = rules[input.name];
     if (!rule) return true;
@@ -121,25 +107,21 @@
     if (err) err.textContent = msg;
     return !msg;
   }
-
   form.querySelectorAll('input,select,textarea').forEach(function (input) {
     input.addEventListener('blur', function () { validate(input); });
     input.addEventListener('input', function () {
       if (fieldOf(input).classList.contains('is-invalid')) validate(input);
     });
   });
-
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var ok = true;
     var first = null;
-
     form.querySelectorAll('input,select,textarea').forEach(function (input) {
       var valid = validate(input);
       if (!valid && !first) first = input;
       ok = ok && valid;
     });
-
     if (!ok) {
       status.classList.remove('is-ok');
       status.textContent = 'Reveja os campos assinalados para continuar.';
@@ -154,7 +136,6 @@
     btn.textContent = 'A enviar…';
     status.classList.remove('is-ok');
     status.textContent = '';
-
     setTimeout(function () {
       btn.disabled = false;
       btn.textContent = 'Solicitar demonstração';

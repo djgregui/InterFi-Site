@@ -16,11 +16,9 @@
 
   /* ---------- 1. Reveal ---------- */
   var reveals = document.querySelectorAll('.reveal');
-
   function showAll() {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
   }
-
   if (!('IntersectionObserver' in window) || reduced) {
     showAll();
   } else {
@@ -31,9 +29,7 @@
         io.unobserve(entry.target);
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-
     reveals.forEach(function (el) { io.observe(el); });
-
     // O hero entra imediatamente, sem esperar pelo scroll.
     requestAnimationFrame(function () {
       document.querySelectorAll('.hero .reveal').forEach(function (el) {
@@ -44,7 +40,6 @@
 
   /* ---------- 2. Contadores ---------- */
   var counters = document.querySelectorAll('[data-count]');
-
   function runCounter(el) {
     var target = parseFloat(el.getAttribute('data-count')) || 0;
     if (reduced) { el.textContent = target; return; }
@@ -58,7 +53,6 @@
     }
     requestAnimationFrame(step);
   }
-
   if ('IntersectionObserver' in window) {
     var cio = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -90,12 +84,10 @@
             (3 - y * 5).toFixed(2) + 'deg)';
         });
       });
-
       zone.addEventListener('mouseleave', function () {
         target.style.transform = '';
       });
     });
-
     document.querySelectorAll('[data-tilt-soft]').forEach(function (card) {
       card.addEventListener('mousemove', function (e) {
         var r = card.getBoundingClientRect();
@@ -114,7 +106,6 @@
     var glow = document.querySelector('.hero__glow');
     var visual = document.querySelector('.hero__visual');
     var ticking = false;
-
     window.addEventListener('scroll', function () {
       if (ticking) return;
       ticking = true;
@@ -132,14 +123,11 @@
      percorre manualmente. Desativado em ecrãs pequenos/toque e em
      dispositivos de baixo desempenho, onde o CSS já mostra o estado final. */
   var canScrub = !lowPower && !coarse && window.innerWidth > 1024;
-
   if (canScrub) {
     var clamp01 = function (n) { return Math.max(0, Math.min(1, n)); };
-
     var scrubIn = Array.prototype.slice.call(document.querySelectorAll('.scrub-in, .scrub-tilt'));
     var pins = Array.prototype.slice.call(document.querySelectorAll('[data-pin]'));
     var tires = Array.prototype.slice.call(document.querySelectorAll('.scrub-tire'));
-
     var pinData = pins.map(function (el) {
       return {
         wrapper: el,
@@ -149,26 +137,20 @@
         hub: el.querySelector('[data-hub]')
       };
     });
-
     var winH = window.innerHeight;
     window.addEventListener('resize', function () { winH = window.innerHeight; }, { passive: true });
-
     function updateScrub() {
       var vh = winH;
-
       scrubIn.forEach(function (el) {
         var r = el.getBoundingClientRect();
         var p = clamp01((vh - r.top - r.height * 0.12) / (vh * 0.82));
         el.style.setProperty('--sp', p.toFixed(3));
       });
-
       pinData.forEach(function (d) {
         var r = d.wrapper.getBoundingClientRect();
         var total = r.height - vh;
         var p = total > 0 ? clamp01(-r.top / total) : (r.top < 0 ? 1 : 0);
-
         if (d.bar) d.bar.style.width = (p * 100).toFixed(1) + '%';
-
         if (d.flow && d.steps) {
           var active = Math.min(d.steps - 1, Math.floor(p * d.steps * 1.06));
           var items = d.flow.children;
@@ -177,24 +159,20 @@
             items[i].classList.toggle('is-done', i < active);
           }
         }
-
         if (d.hub) d.hub.style.setProperty('--hp', p.toFixed(3));
       });
-
       tires.forEach(function (el) {
         var r = el.getBoundingClientRect();
         var p = clamp01((vh - r.top) / (vh + r.height));
         el.style.setProperty('--tp', p.toFixed(3));
       });
     }
-
     var scrubTicking = false;
     window.addEventListener('scroll', function () {
       if (scrubTicking) return;
       scrubTicking = true;
       requestAnimationFrame(function () { scrubTicking = false; updateScrub(); });
     }, { passive: true });
-
     updateScrub();
   } else {
     document.body.classList.add('no-scrub');

@@ -2,7 +2,6 @@
    InterFi — responsive.css
    Desktop → notebook → tablet → telemóvel
    ========================================================= */
-
 @media (max-width:1180px){
   .cards{grid-template-columns:repeat(2,1fr)}
   .hero__inner{gap:40px}
@@ -10,12 +9,10 @@
   .float--b{left:-24px}
   .float--c{right:-16px}
 }
-
 @media (max-width:1024px){
   .nav__actions .btn--ghost,
   .nav__actions .btn--primary{display:none}
   .nav__toggle{display:inline-flex}
-
   .nav__links{
     position:fixed;inset:0 0 0 auto;width:min(340px,86vw);
     flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:4px;
@@ -31,7 +28,6 @@
   .nav__links-cta{display:flex;flex-direction:column;gap:12px;width:100%;margin-top:26px}
   .nav__links-cta .btn{width:100%}
   .nav__links-cta .btn--ghost{border:1px solid var(--line)}
-
   .grid-2,
   .grid-2--wide,
   .grid-2--rev,
@@ -39,7 +35,6 @@
   .grid-2--form{grid-template-columns:1fr;gap:44px}
   .grid-2--rev > figure,
   .grid-2--rev > .tire{order:2}
-
   .hero{padding:124px 0 70px}
   .hero__inner{grid-template-columns:1fr}
   .hero__visual{margin-top:12px}
@@ -47,53 +42,42 @@
   .screen--hero,
   .screen--perspective,
   .screen--left{transform:none}
-
   .footer__top{grid-template-columns:1fr 1fr;gap:34px}
   .memoria{grid-template-columns:1fr;gap:28px;padding:38px}
   .audience{grid-template-columns:repeat(2,1fr)}
 }
-
 @media (max-width:760px){
   .sec{padding:76px 0}
   .sec--hub{padding:86px 0}
   .wrap{padding-inline:20px}
   .nav .logo__img{height:38px}
-
   .cards{grid-template-columns:1fr}
   .metrics{grid-template-columns:1fr}
   .audience{grid-template-columns:1fr}
   .converge__grid{grid-template-columns:repeat(2,1fr)}
   .form{grid-template-columns:1fr;padding:24px}
-
   .hero__stats{gap:26px}
   .hero__stats li{flex:1 1 40%}
   .hero__cta .btn{flex:1 1 100%}
-
   .float--a{top:-18px;left:0;padding:9px 12px}
   .float--b{bottom:10px;left:0}
   .float--c{display:none}
-
   .flow li{flex:1 1 100%}
   .flow li:not(:last-child)::after{display:none}
-
   .hub__nodes li{font-size:.72rem;padding:7px 10px}
   .hub__nodes .icon{width:14px;height:14px}
   .hub__core{padding:12px 18px}
-
   .footer{padding:54px 0 28px}
   .footer__top{grid-template-columns:1fr;gap:30px}
   .footer__bottom{flex-direction:column;align-items:flex-start}
-
   .totop{right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
 }
-
 @media (max-width:420px){
   .converge__grid{grid-template-columns:1fr}
   .hub__nodes li{font-size:.66rem;padding:6px 9px;gap:5px}
   .tire{max-width:300px}
   .quote{flex-direction:column;gap:12px}
 }
-
 /* Ecrãs largos */
 @media (min-width:1600px){
   :root{--wrap:1320px}

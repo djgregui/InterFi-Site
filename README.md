@@ -1,4 +1,4 @@
-# InterFi — site institucional
+# InterFi — Site Institucional
 
 Site comercial de divulgação e captação de clientes para a plataforma InterFi.
 Código estático: abre diretamente no navegador com duplo clique em `index.html`.
