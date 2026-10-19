@@ -36,7 +36,8 @@ function e(string $original): string {
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <title><?= e('InterFi | Gestão completa para empresas de transporte') ?></title>
-<meta content="<?= e('InterFi é uma plataforma completa para gestão de empresas de transporte. Controle frota, manutenção, pneus, abastecimento, documentos, colaboradores, ocorrências e muito mais.') ?>" name="description"/>
+<meta name="description" content="<?= e('Simplifique a gestão da sua empresa de transporte. Controle viaturas, manutenções, documentos, validades e motoristas numa única plataforma.') ?>">
+
 <meta content="#011C2F" name="theme-color"/>
 <meta content="InterFi Soluções" name="author"/>
 <link href="<?= $lang === "en" ? "https://www.interfi.net/?lang=en" : "https://www.interfi.net/" ?>" rel="canonical"/>
@@ -63,6 +64,7 @@ function e(string $original): string {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "InterFi",
+    "alternateName": "InterFi Soluções",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
     "description": <?= json_encode(t("Plataforma completa de gestão para empresas de transporte: frota, manutenção, pneus, abastecimento, documentos, colaboradores, operação e administração."), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>,
