@@ -41,6 +41,22 @@
   toggle.addEventListener('click', function () {
     setMenu(!links.classList.contains('is-open'));
   });
+  
+/* Fechar o menu ao clicar fora dele */
+document.addEventListener('click', function (e) {
+
+    const menuAberto = links.classList.contains('is-open');
+
+    const clicouFora =
+        !links.contains(e.target) &&
+        !toggle.contains(e.target);
+
+    if (menuAberto && clicouFora) {
+        setMenu(false);
+    }
+
+});
+
   links.addEventListener('click', function (e) {
     if (e.target.closest('a')) {
       setMenu(false);

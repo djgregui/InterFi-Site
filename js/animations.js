@@ -102,7 +102,7 @@
   }
 
   /* ---------- 4. Parallax leve no hero ---------- */
-  if (!lowPower) {
+if (!lowPower && window.matchMedia('(min-width: 1025px)').matches) {
     var glow = document.querySelector('.hero__glow');
     var visual = document.querySelector('.hero__visual');
     var ticking = false;
