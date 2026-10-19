@@ -698,3 +698,20 @@ body.low-power .hero__road,
 body.low-power .hub__ring--2,
 body.low-power .hub__spokes line{animation:none}
 body.low-power .screen{transform:none}
+
+
+/* ===== Idiomas PT / EN (header desktop e telemóvel) ===== */
+.lang-switch{display:inline-flex;align-items:center;gap:4px;padding:4px 6px;
+  border:1px solid rgba(157,178,191,.28);background:rgba(255,255,255,.055);
+  border-radius:999px;flex:none;white-space:nowrap}
+.lang-switch__link{display:inline-flex;align-items:center;justify-content:center;
+  padding:6px 8px;border-radius:999px;color:#b3c7d2;font-weight:700;
+  font-size:.72rem;letter-spacing:.06em;line-height:1;transition:background .2s,color .2s}
+.lang-switch__link.is-active{background:#ff4a01;color:#fff}
+.lang-switch__link:hover:not(.is-active){background:rgba(255,255,255,.12);color:#fff}
+.lang-switch__link:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.lang-switch__divider{color:rgba(255,255,255,.35);font-size:.7rem}
+@media (max-width:420px){.nav__inner{gap:10px}.nav__actions{gap:8px}
+  .lang-switch{padding:3px 4px}.lang-switch__link{padding:6px 6px}}
+@media (min-width:1025px) and (max-width:1290px){.nav__inner{gap:14px}
+  .nav__links{gap:15px}.nav__links>a{font-size:.82rem}.nav__actions{gap:4px}}

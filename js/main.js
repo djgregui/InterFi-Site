@@ -5,11 +5,24 @@
 
 (function () {
   'use strict';
+  /* Partilha as traduções do PHP, incluindo as mensagens de validação. */
+  function tr(message) {
+    return (window.interfiTranslations && window.interfiTranslations[message]) || message;
+  }
   var nav = document.getElementById('nav');
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
   var progress = document.getElementById('navProgress');
   var toTop = document.getElementById('toTop');
+
+  /* Preserva o ponto da página ao alternar o idioma. */
+  document.querySelectorAll('.lang-switch__link').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (window.location.hash) {
+        a.href = a.getAttribute('href') + window.location.hash;
+      }
+    });
+  });
 
   /* ---------- Menu mobile ---------- */
   function setMenu(open) {
@@ -17,7 +30,7 @@
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute(
       'aria-label',
-      open ? 'Fechar menu' : 'Abrir menu'
+      open ? tr('Fechar menu') : tr('Abrir menu')
     );
     toggle.innerHTML =
       '<svg class="icon" aria-hidden="true"><use href="#' +
@@ -107,40 +120,40 @@
   var rules = {
     nome: function (v) {
       if (!v.trim()) {
-        return 'Indique o seu nome.';
+        return tr('Indique o seu nome.');
       }
       if (v.trim().length < 2) {
-        return 'O nome parece demasiado curto.';
+        return tr('O nome parece demasiado curto.');
       }
       return '';
     },
     empresa: function (v) {
       if (!v.trim()) {
-        return 'Indique o nome da empresa.';
+        return tr('Indique o nome da empresa.');
       }
       return '';
     },
     email: function (v) {
       if (!v.trim()) {
-        return 'Indique um e-mail de contato.';
+        return tr('Indique um e-mail de contato.');
       }
       if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v.trim())) {
-        return 'Verifique o formato do e-mail.';
+        return tr('Verifique o formato do e-mail.');
       }
       return '';
     },
     telefone: function (v) {
       if (!v.trim()) {
-        return 'Indique um telefone.';
+        return tr('Indique um telefone.');
       }
       if (v.replace(/\D/g, '').length < 9) {
-        return 'O telefone precisa de pelo menos 9 dígitos.';
+        return tr('O telefone precisa de pelo menos 9 dígitos.');
       }
       return '';
     },
     veiculos: function (v) {
       if (!v) {
-        return 'Selecione o número de veículos.';
+        return tr('Selecione o número de veículos.');
       }
       return '';
     },
@@ -199,7 +212,7 @@
     if (!ok) {
       status.classList.remove('is-ok');
       status.textContent =
-        'Reveja os campos assinalados para continuar.';
+        tr('Reveja os campos assinalados para continuar.');
       if (first) {
         first.focus();
       }
@@ -209,7 +222,7 @@
       'button[type="submit"]'
     );
     btn.disabled = true;
-    btn.textContent = 'A enviar…';
+    btn.textContent = tr('A enviar…');
     status.classList.remove('is-ok');
     status.textContent = '';
 
@@ -226,27 +239,22 @@
     })
     .then(function (data) {
       btn.disabled = false;
-      btn.textContent = 'Solicitar demonstração';
+      btn.textContent = tr('Solicitar demonstração');
       if (data.ok) {
         status.classList.add('is-ok');
-        status.textContent =
-          'Pedido enviado com sucesso. ' +
-          'A nossa equipa entra em contacto em até um dia útil.';
+        status.textContent = tr('Pedido enviado com sucesso. A nossa equipa entra em contacto em até um dia útil.');
         form.reset();
       } else {
         status.classList.remove('is-ok');
         status.textContent =
-          data.message ||
-          'Não foi possível enviar o pedido.';
+          tr(data.message || 'Não foi possível enviar o pedido.');
       }
     })
     .catch(function () {
       btn.disabled = false;
-      btn.textContent = 'Solicitar demonstração';
+      btn.textContent = tr('Solicitar demonstração');
       status.classList.remove('is-ok');
-      status.textContent =
-        'Ocorreu um erro ao enviar o pedido. ' +
-        'Tente novamente.';
+      status.textContent = tr('Ocorreu um erro ao enviar o pedido. Tente novamente.');
     });
   });
 })();
