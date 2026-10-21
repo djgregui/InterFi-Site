@@ -559,7 +559,7 @@ function e(string $original): string {
 <textarea id="mensagem" name="mensagem" placeholder="<?= e('Conte-nos um pouco sobre a sua operação (opcional)') ?>" rows="4"></textarea>
 <small class="err" data-err=""></small>
 </div>
-<button class="btn btn--primary btn--lg btn--block" type="submit"><?= e('Solicitar demonstração') ?></button>
+<button class="btn btn--primary btn--lg btn--block" type="submit"><?= e('Enviar pelo WhatsApp') ?></button>
 <p aria-live="polite" class="form__status" id="formStatus" role="status"></p>
 </form>
 </div>

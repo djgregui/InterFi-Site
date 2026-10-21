@@ -212,65 +212,72 @@ document.addEventListener('click', function (e) {
   });
 
   /* ---------- Envio do formulário ---------- */
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var ok = true;
-    var first = null;
-    form.querySelectorAll(
-      'input,select,textarea'
-    ).forEach(function (input) {
-      var valid = validate(input);
-      if (!valid && !first) {
-        first = input;
-      }
-      ok = ok && valid;
-    });
-    if (!ok) {
-      status.classList.remove('is-ok');
-      status.textContent =
-        tr('Reveja os campos assinalados para continuar.');
-      if (first) {
-        first.focus();
-      }
-      return;
-    }
-    var btn = form.querySelector(
-      'button[type="submit"]'
-    );
-    btn.disabled = true;
-    btn.textContent = tr('A enviar…');
-    status.classList.remove('is-ok');
-    status.textContent = '';
+  
+/* ---------- Envio do formulário para WhatsApp ---------- */
 
-    /* ---------- Envio real para o PHP ---------- */
-    fetch('enviar-demo.php', {
-      method: 'POST',
-      body: new FormData(form)
-    })
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error('Erro HTTP ' + response.status);
-      }
-      return response.json();
-    })
-    .then(function (data) {
-      btn.disabled = false;
-      btn.textContent = tr('Solicitar demonstração');
-      if (data.ok) {
-        status.classList.add('is-ok');
-        status.textContent = tr('Pedido enviado com sucesso. A nossa equipa entra em contacto em até um dia útil.');
-        form.reset();
-      } else {
-        status.classList.remove('is-ok');
-        status.textContent =
-          tr(data.message || 'Não foi possível enviar o pedido.');
-      }
-    })
-    .catch(function () {
-      btn.disabled = false;
-      btn.textContent = tr('Solicitar demonstração');
-      status.classList.remove('is-ok');
-      status.textContent = tr('Ocorreu um erro ao enviar o pedido. Tente novamente.');
-    });
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  var ok = true;
+  var first = null;
+
+  // Validar os campos obrigatórios
+  form.querySelectorAll('input,select,textarea').forEach(function (input) {
+    var valid = validate(input);
+
+    if (!valid && !first) {
+      first = input;
+    }
+
+    ok = ok && valid;
   });
+
+  if (!ok) {
+    status.classList.remove('is-ok');
+    status.textContent = tr('Reveja os campos assinalados para continuar.');
+
+    if (first) first.focus();
+    return;
+  }
+
+  // Número do WhatsApp da InterFi
+  var numero = '351937525605';
+
+  // Obter os dados do formulário
+  var dados = new FormData(form);
+
+  var nome = dados.get('nome').trim();
+  var empresa = dados.get('empresa').trim();
+  var email = dados.get('email').trim();
+  var telefone = dados.get('telefone').trim();
+  var veiculos = dados.get('veiculos').trim();
+  var observacao = dados.get('mensagem').trim();
+
+  // Montar a mensagem
+  var mensagem = [
+    '*NOVA SOLICITAÇÃO DE DEMONSTRAÇÃO*',
+    '*InterFi Soluções*',
+    '',
+    '*Nome:* ' + nome,
+    '*Empresa:* ' + empresa,
+    '*E-mail:* ' + email,
+    '*Telefone:* ' + telefone,
+    '*Número de veículos:* ' + veiculos,
+    '',
+    '*Mensagem:*',
+    observacao || 'Não informada'
+  ].join('\n');
+
+  // Abrir o WhatsApp com a mensagem preenchida
+  var url = 'https://wa.me/' + numero +
+            '?text=' + encodeURIComponent(mensagem);
+
+  window.location.href = url;
+});
+
+
+
+
+
+
 })();
